@@ -12,12 +12,18 @@
     "electron-dev": "concurrently \"npm run dev\" \"npm run electron\"",
     "package": "electron-forge package",
     "make": "electron-forge make",
+    "check:node": "node -e \"const major = Number(process.versions.node.split('.')[0]); if (major < 20 || major >= 26) { console.error('AniDesk packaging requires Node >=20 <26. Use Node 22 LTS.'); process.exit(1); }\"",
+    "make:appimage": "npm run check:node && electron-forge make --platform=linux --targets=@reforged/maker-appimage",
     "build": "rollup -c --bundleConfigAsCjs",
-    "buildAndMake": "npm run build && npm run make"
+    "buildAndMake": "npm run build && npm run make",
+    "build:appimage": "npm run check:node && npm run build && npm run make:appimage"
   },
   "keywords": [
     "anixart"
   ],
+  "engines": {
+    "node": ">=20 <26"
+  },
   "author": "DesConnet, hack1exe",
   "license": "ISC",
   "devDependencies": {
@@ -30,6 +36,7 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.10.2",
     "@electron-forge/plugin-fuses": "^7.10.2",
     "@electron/fuses": "^1.8.0",
+    "@reforged/maker-appimage": "^5.2.0",
     "@rollup/plugin-commonjs": "^28.0.9",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",

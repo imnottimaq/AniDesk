@@ -21,11 +21,12 @@
         let
           pkgs = import nixpkgs { inherit system; };
           electron = pkgs.electron;
+          nodejs = pkgs.nodejs_22;
         in
         {
           default = self.packages.${system}.anidesk;
 
-          anidesk = pkgs.buildNpmPackage rec {
+          anidesk = (pkgs.buildNpmPackage.override { inherit nodejs; }) rec {
             pname = "anidesk";
             version = "0.0.1-beta.7";
 
@@ -102,8 +103,9 @@
         {
           default = pkgs.mkShell {
             packages = [
-              pkgs.nodejs
+              pkgs.nodejs_22
               pkgs.electron
+              pkgs.squashfsTools
             ];
 
             ELECTRON_SKIP_BINARY_DOWNLOAD = "1";

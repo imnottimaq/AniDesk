@@ -42,6 +42,20 @@ module.exports = {
       name: '@electron-forge/maker-rpm',
       config: {},
     },
+    {
+      name: '@reforged/maker-appimage',
+      platforms: ['linux'],
+      config: {
+        options: {
+          name: 'anidesk',
+          productName: 'AniDesk',
+          bin: 'AniDesk',
+          genericName: 'Anime desktop client',
+          categories: ['AudioVideo', 'Video'],
+          icon: 'public/assets/icons/anidesk-icon.png',
+        },
+      },
+    },
   ],
   plugins: [
     {
